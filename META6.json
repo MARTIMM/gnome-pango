@@ -1,0 +1,24 @@
+{
+  "description": "Raku - Gnome Pango Interface",
+  "name": "Gnome::Pango",
+  "version": "0.1.0",
+  "authors": [ "Marcel Timmerman"],
+  "tags": [ "gnome", "pango"],
+
+  "perl": "6.d",
+  "license": "Artistic-2.0",
+
+  "provides": {
+    "Gnome::Pango::Item": "lib/Gnome/Pango/Item.pm6"
+  },
+
+  "source-url": "git://github.com/MARTIMM/gnome-pango.git",
+
+  "depends": [
+    "Gnome::GObject"
+  ],
+
+  "test-depends": [ ],
+  "build-depends": [ ],
+  "resources": [ ]
+}
