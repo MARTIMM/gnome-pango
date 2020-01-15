@@ -1,4 +1,5 @@
 use v6;
+use lib '../gnome-native/lib';
 use NativeCall;
 use Test;
 
@@ -13,6 +14,9 @@ my Gnome::Pango::Item $i;
 subtest 'ISA test', {
   $i .= new(:empty);
   isa-ok $i, Gnome::Pango::Item, '.new(:empty)';
+  ok $i.is-valid(), '.is-valid()';
+  $i.clear-object();
+  nok $i.is-valid(), '.clear-object()';
 }
 
 #`{{
@@ -43,4 +47,3 @@ subtest 'Signals ...', {
 
 #-------------------------------------------------------------------------------
 done-testing;
-
