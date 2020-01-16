@@ -126,7 +126,7 @@ submethod BUILD ( *%options ) {
 
   # process all named arguments
   if ? %options<empty> {
-    DEPRECATED( 'new(:empty)', 'new(:empty)', '0.2.0');
+    Gnome::N::deprecate( 'new(:empty)', 'new()', '0.1.0', '0.2.0');
     self.set-native-object(pango_item_new());
     self.set-valid(True);
   }
@@ -173,7 +173,7 @@ submethod DESTROY ( ) {
 }
 
 #-------------------------------------------------------------------------------
-#TM:0:clear-object
+#TM:1:clear-object
 =begin pod
 =head2 clear-object
 
@@ -188,7 +188,6 @@ method clear-object ( ) {
   if self.is-valid {
     _pango_item_free(self.get-native-object);
     self.set-valid(False);
-    self.set-native-object(Any);
   }
 }
 
