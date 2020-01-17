@@ -118,23 +118,28 @@ Create an object using a native object from a builder. See also B<Gnome::GObject
 
 #TM:1:new():
 #TM:1:new(:empty):
-
+#TM:1:new(:native-object):
 submethod BUILD ( *%options ) {
 
   # prevent creating wrong widgets
   return unless self.^name eq 'Gnome::Pango::Item';
 
   # process all named arguments
-  if ? %options<empty> {
+  if %options<empty> {
     Gnome::N::deprecate( 'new(:empty)', 'new()', '0.1.0', '0.2.0');
     self.set-native-object(pango_item_new());
     self.set-valid(True);
   }
 
+  elsif ?%options<native-object> and %options<native-object> ~~ N-PangoItem {
+    self.set-native-object(%options<native-object>);
+    self.set-valid(True);
+  }
+
   elsif %options.keys.elems {
     die X::Gnome.new(
-      :message('Unsupported options for ' ~ self.^name ~
-               ': ' ~ %options.keys.join(', ')
+      :message( 'Unsupported, undefined or wrongly typed options for ' ~
+                self.^name ~ ': ' ~ %options.keys.join(', ')
               )
     );
   }
@@ -211,7 +216,7 @@ sub pango_item_new (  )
   { * }
 
 #-------------------------------------------------------------------------------
-#TM:0:pango_item_copy:
+#TM:1:pango_item_copy:
 =begin pod
 =head2 pango_item_copy
 
@@ -219,17 +224,25 @@ Copy an existing B<N-PangoItem> structure.
 
 Return value: the newly allocated B<N-PangoItem>, which should be cleared with C<clear-object()>.
 
-  method pango_item_copy ( --> N-PangoItem  )
+  method pango_item_copy ( --> Gnome::Pango::Item )
 
 =end pod
 
-sub pango_item_copy ( N-PangoItem $item )
+method copy ( |c ) { pango_item_copy(self.get-native-object); }
+sub pango_item_copy ( N-PangoItem $item --> Gnome::Pango::Item ) {
+  my N-PangoItem $pi = _pango_item_copy($item);
+
+  Gnome::Pango::Item.new(:native-object($pi))
+}
+
+sub _pango_item_copy ( N-PangoItem $item )
   returns N-PangoItem
   is native(&pango-lib)
+  is symbol('pango_item_copy')
   { * }
 
 #-------------------------------------------------------------------------------
-#`{{ No doc, user
+#`{{ No doc, user must use clear-object
 # TM:0:pango_item_free:
 =begin pod
 =head2 pango_item_free
@@ -251,19 +264,9 @@ sub _pango_item_free ( N-PangoItem $item )
 =begin pod
 =head2 pango_item_split
 
-Modifies I<orig> to cover only the text after I<split_index>, and
-returns a new item that covers the text before I<split_index> that
-used to be in I<orig>. You can think of I<split_index> as the length of
-the returned item. I<split_index> may not be 0, and it may not be
-greater than or equal to the length of I<orig> (that is, there must
-be at least one byte assigned to each item, you can't create a
-zero-length item). I<split_offset> is the length of the first item in
-chars, and must be provided because the text used to generate the
-item isn't available, so C<pango_item_split()> can't count the char
-length of the split items itself.
+Modifies I<$orig> to cover only the text after I<$split_index>, and returns a new item that covers the text before I<$split_index> that used to be in I<$orig>. You can think of I<$split_index> as the length of the returned item. I<$split_index> may not be 0, and it may not be greater than or equal to the length of I<$orig> (that is, there must be at least one byte assigned to each item, you can't create a zero-length item). I<$split_offset> is the length of the first item in chars, and must be provided because the text used to generate the item isn't available, so C<pango_item_split()> can't count the char length of the split items itself.
 
-Return value: new item representing text before I<split_index>, which
-should be freed with C<pango_item_free()>.
+Return value: new item representing text before I<$split_index>, which should be freed with C<pango_item_free()>.
 
   method pango_item_split ( Int $split_index, Int $split_offset --> N-PangoItem  )
 
