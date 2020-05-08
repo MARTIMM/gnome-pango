@@ -9,13 +9,15 @@
   "license": "Artistic-2.0",
 
   "provides": {
-    "Gnome::Pango::Item": "lib/Gnome/Pango/Item.pm6"
+    "Gnome::Pango::Context": "lib/Gnome/Pango/Context.pm6",
+    "Gnome::Pango::Item": "lib/Gnome/Pango/Item.pm6",
+    "Gnome::Pango::Layout": "lib/Gnome/Pango/Layout.pm6"
   },
 
   "source-url": "git://github.com/MARTIMM/gnome-pango.git",
 
   "depends": [
-    "Gnome::GObject"
+    "Gnome::N", "Gnome::Glib", "Gnome::GObject"
   ],
 
   "test-depends": [ ],
