@@ -13,8 +13,8 @@ Gnome::N::debug(:on);
 my Gnome::Pango::Item $i;
 #-------------------------------------------------------------------------------
 subtest 'ISA test', {
-  $i .= new(:empty);
-  isa-ok $i, Gnome::Pango::Item, '.new(:empty)';
+  $i .= new;
+  isa-ok $i, Gnome::Pango::Item, '.new';
   ok $i.is-valid(), '.is-valid()';
   $i.clear-object();
   nok $i.is-valid(), '.clear-object()';

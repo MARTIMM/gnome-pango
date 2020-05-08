@@ -104,7 +104,7 @@ class N-PangoItem is export is repr('CStruct') {
 
 Create a new pango item.
 
-  multi method new ( Bool :empty! )
+  multi method new ( )
 
 Create an object using a native object from elsewhere. See also B<Gnome::GObject::Object>.
 
@@ -117,23 +117,16 @@ Create an object using a native object from a builder. See also B<Gnome::GObject
 =end pod
 
 #TM:1:new():
-#TM:1:new(:empty):
 #TM:1:new(:native-object):
 submethod BUILD ( *%options ) {
 
-  # prevent creating wrong widgets
+  # prevent creating wrong native-objects
   return unless self.^name eq 'Gnome::Pango::Item';
 
   # process all named arguments
-  if %options<empty> {
-    Gnome::N::deprecate( 'new(:empty)', 'new()', '0.1.0', '0.2.0');
-    self.set-native-object(pango_item_new());
-    self.set-valid(True);
-  }
-
-  elsif ?%options<native-object> and %options<native-object> ~~ N-PangoItem {
+  if ?%options<native-object> and %options<native-object> ~~ N-PangoItem {
     self.set-native-object(%options<native-object>);
-    self.set-valid(True);
+#    self.set-valid(True);
   }
 
   elsif %options.keys.elems {
@@ -147,10 +140,10 @@ submethod BUILD ( *%options ) {
   # no options mean :empty
   else {
     self.set-native-object(pango_item_new());
-    self.set-valid(True);
+#    self.set-valid(True);
   }
 
-  # only after creating the widget, the gtype is known
+  # only after creating the native-object, the gtype is known
   self.set-class-info('PangoItem');
 }
 
@@ -160,21 +153,13 @@ method _fallback ( $native-sub is copy --> Callable ) {
 
   my Callable $s;
   try { $s = &::("pango_item_$native-sub"); };
-# check for gtk_, gdk_ or g_ !!!
   try { $s = &::("pango_$native-sub"); } unless ?$s;
-  try { $s = &::($native-sub); } if !$s and $native-sub ~~ m/^ 'gtk_' /;
-#  $s = self._buildable_interface($native-sub) unless ?$s;
-#  $s = self._orientable_interface($native-sub) unless ?$s;
+  try { $s = &::($native-sub); } if !$s and $native-sub ~~ m/^ 'pango_' /;
 
   self.set-class-name-of-sub('PangoItem');
   $s = callsame unless ?$s;
 
   $s;
-}
-
-#-------------------------------------------------------------------------------
-submethod DESTROY ( ) {
-  _pango_item_free(self.get-native-object) if self.is-valid;
 }
 
 #-------------------------------------------------------------------------------
@@ -192,12 +177,13 @@ method clear-object ( ) {
 
   if self.is-valid {
     _pango_item_free(self.get-native-object);
-    self.set-valid(False);
+#    self.set-valid(False);
+    callsame
   }
 }
 
 #-------------------------------------------------------------------------------
-#TM:2:pango_item_new::new(:empty)
+#TM:2:pango_item_new::new()
 =begin pod
 =head2 pango_item_new
 
