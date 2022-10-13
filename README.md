@@ -8,8 +8,14 @@
 
 Documentation can be found at [this site](http://martimm.github.io/gnome-gtk3) and has the `GNU Free Documentation License`.
 
-# Description
+# Documentation
 
+* [ 🔗 Website](https://martimm.github.io/gnome-gtk3/content-docs/reference-glib.html)
+* [ 🔗 Travis-ci run on master branch][travis-run]
+* [ 🔗 Appveyor run on master branch][appveyor-run]
+* [ 🔗 License document][licence-lnk]
+* [ 🔗 Release notes][changes]
+* [ 🔗 Issues](https://github.com/MARTIMM/gnome-gtk3/issues)
 
 
 # Versions of involved software
