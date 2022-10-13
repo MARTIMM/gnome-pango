@@ -1,7 +1,7 @@
 {
   "description": "Raku - Gnome Pango Interface",
   "name": "Gnome::Pango",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [ "Marcel Timmerman"],
   "tags": [ "gnome", "pango"],
 
@@ -9,9 +9,9 @@
   "license": "Artistic-2.0",
 
   "provides": {
-    "Gnome::Pango::Context": "lib/Gnome/Pango/Context.pm6",
-    "Gnome::Pango::Item": "lib/Gnome/Pango/Item.pm6",
-    "Gnome::Pango::Layout": "lib/Gnome/Pango/Layout.pm6"
+    "Gnome::Pango::Context": "lib/Gnome/Pango/Context.rakumod",
+    "Gnome::Pango::Item": "lib/Gnome/Pango/Item.rakumod",
+    "Gnome::Pango::Layout": "lib/Gnome/Pango/Layout.rakumod"
   },
 
   "source-url": "git://github.com/MARTIMM/gnome-pango.git",
