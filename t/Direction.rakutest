@@ -1,0 +1,28 @@
+use v6;
+use NativeCall;
+use Test;
+
+use Gnome::Pango::Direction;
+
+#use Gnome::N::GlibToRakuTypes;
+#use Gnome::N::N-GObject;
+#use Gnome::N::X;
+#Gnome::N::debug(:on);
+
+#-------------------------------------------------------------------------------
+my Gnome::Pango::Direction $d;
+#-------------------------------------------------------------------------------
+subtest 'Enum values', {
+  is-deeply (
+    PANGO_DIRECTION_LTR.value,
+    PANGO_DIRECTION_RTL.value,
+    PANGO_DIRECTION_TTB_LTR.value,
+    PANGO_DIRECTION_TTB_RTL.value,
+    PANGO_DIRECTION_WEAK_LTR.value,
+    PANGO_DIRECTION_WEAK_RTL.value,
+    PANGO_DIRECTION_NEUTRAL.value
+  ), (0, 1, 2, 3, 4, 5, 6), 'enum PangoDirection';
+}
+
+#-------------------------------------------------------------------------------
+done-testing;
