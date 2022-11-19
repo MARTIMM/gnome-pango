@@ -1,0 +1,33 @@
+use v6;
+use NativeCall;
+use Test;
+
+use Gnome::Pango::Gravity;
+
+#use Gnome::N::GlibToRakuTypes;
+#use Gnome::N::N-GObject;
+#use Gnome::N::X;
+#Gnome::N::debug(:on);
+
+#-------------------------------------------------------------------------------
+my Gnome::Pango::Gravity $g;
+#-------------------------------------------------------------------------------
+subtest 'Enum test', {
+  is-deeply (
+    PANGO_GRAVITY_SOUTH.value,
+    PANGO_GRAVITY_EAST.value,
+    PANGO_GRAVITY_NORTH.value,
+    PANGO_GRAVITY_WEST.value,
+    PANGO_GRAVITY_AUTO.value
+  ), ( 0, 1, 2, 3, 4), 'enum PangoGravity';
+
+  is-deeply (
+    PANGO_GRAVITY_HINT_NATURAL.value,
+    PANGO_GRAVITY_HINT_STRONG.value,
+    PANGO_GRAVITY_HINT_LINE.value
+ ), ( 0, 1, 2), 'enum PangoGravityHint';
+
+}
+
+#-------------------------------------------------------------------------------
+done-testing;
