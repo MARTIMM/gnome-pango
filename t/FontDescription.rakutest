@@ -1,0 +1,72 @@
+use v6;
+use NativeCall;
+use Test;
+
+use Gnome::Pango::FontDescription;
+use Gnome::Pango::Gravity;
+
+#use Gnome::N::GlibToRakuTypes;
+#use Gnome::N::N-GObject;
+#use Gnome::N::X;
+#Gnome::N::debug(:on);
+
+#-------------------------------------------------------------------------------
+my Gnome::Pango::FontDescription $fd;
+#-------------------------------------------------------------------------------
+subtest 'ISA test', {
+  $fd .= new;
+  ok $fd.is-valid, '.new()';
+  is $fd.to-string, 'Normal', '.to-string()';
+
+  $fd .= new(:string('Courier Italic'));
+  ok $fd.is-valid, '.new(:string)';
+  is $fd.to-filename, 'courier_italic', '.to-filename()';
+}
+
+
+#-------------------------------------------------------------------------------
+# set environment variable 'raku-test-all' if rest must be tested too.
+unless %*ENV<raku_test_all>:exists {
+  done-testing;
+  exit;
+}
+
+#-------------------------------------------------------------------------------
+subtest 'Manipulations', {
+
+  $fd.set-family('Cantarell');
+  is $fd.get-family, 'Cantarell', '.set-family() / .get-family()';
+
+  $fd.set-gravity(PANGO_GRAVITY_SOUTH);
+  is $fd.get-gravity, PANGO_GRAVITY_SOUTH, '.set-gravity() / .get-gravity()';
+
+  # all fields set except variations
+  is $fd.get-set-fields, 0b1011111, '.get-set-fields()';
+  $fd.unset-fields(0b1);
+  is $fd.get-set-fields, 0b1011110, '.unset-fields()';
+
+  $fd.set-size(3);
+  is $fd.get-size, 3, '.set-size() / .get-size()';
+  $fd.set-absolute-size(2.3);
+  is $fd.get-size, 2, '.set-absolute-size()';
+  ok $fd.get-size-is-absolute, '.get-size-is-absolute()';
+
+  $fd.set-stretch(PANGO_STRETCH_NORMAL);
+  is $fd.get-stretch, PANGO_STRETCH_NORMAL, '.set-stretch() / .get-stretch()';
+
+  $fd.set-style(PANGO_STYLE_ITALIC);
+  is $fd.get-style, PANGO_STYLE_ITALIC, '.set-style() / .get-style()';
+
+  $fd.set-variant(PANGO_VARIANT_NORMAL);
+  is $fd.get-variant, PANGO_VARIANT_NORMAL, '.set-variant() / .get-variant()';
+
+  $fd.set-variations('weight=200');
+  is $fd.get-variations, 'weight=200', '.set-variations() / .get-variations()';
+  is $fd.get-weight, PANGO_WEIGHT_NORMAL, '.get-weight()';
+}
+
+#-------------------------------------------------------------------------------
+done-testing;
+
+=finish
+
