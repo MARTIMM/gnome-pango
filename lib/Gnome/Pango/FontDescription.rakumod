@@ -8,13 +8,16 @@ use v6;
 
 =head1 Description
 
+A PangoFontDescription describes a font in an implementation-independent manner.
+
+PangoFontDescription structures are used both to list what fonts are available on the system and also for specifying the characteristics of a font to load.
 
 
 =head1 Synopsis
 =head2 Declaration
 
   unit class Gnome::Pango::FontDescription;
-  also is Gnome::GObject::Object;
+  also is Gnome::GObject::Boxed;
 
 
 =comment head2 Example
@@ -28,14 +31,14 @@ use Gnome::N::NativeLib;
 use Gnome::N::N-GObject;
 use Gnome::N::GlibToRakuTypes;
 
-use Gnome::GObject::Object;
+use Gnome::GObject::Boxed;
 
 use Gnome::Pango::Gravity;
 
 
 #-------------------------------------------------------------------------------
 unit class Gnome::Pango::FontDescription:auth<github:MARTIMM>;
-also is Gnome::GObject::Object;
+also is Gnome::GObject::Boxed;
 
 #-------------------------------------------------------------------------------
 =begin pod
