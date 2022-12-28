@@ -1,7 +1,7 @@
 # Release notes
 
 * 2022-12-28 0.1.4
-  * Changed **Gnome::Pango::Item**.
+  * Changed **Gnome::Pango::Item**, **Gnome::Pango::Font**, **Gnome::Pango::Context**.
 
 * 2022-11-18 0.1.3
   * Added **Gnome::Pango::Direction**, **Gnome::Pango::Gravity**, **Gnome::Pango::FontDescription**.
