@@ -193,6 +193,34 @@ enum PangoWeight is export (
   'PANGO_WEIGHT_ULTRAHEAVY' => 1000
 );
 
+#-------------------------------------------------------------------------------
+=begin pod
+=head2 enum PangoScale
+
+CSS scale factors (1.2 factor between each size)
+
+=item PANGO_SCALE_XX_SMALL: The scale factor for three shrinking steps (1 / (1.2 * 1.2 * 1.2)
+=item PANGO_SCALE_X_SMALL: The scale factor for two shrinking steps (1 / (1.2 * 1.2)).
+=item PANGO_SCALE_SMALL: The scale factor for one shrinking step (1 / 1.2).
+=item PANGO_SCALE_MEDIUM: The scale factor for normal size (1.0).
+=item PANGO_SCALE_LARGE: The scale factor for one magnification step (1.2).
+=item PANGO_SCALE_X_LARGE: The scale factor for two magnification steps (1.2 * 1.2).
+=item PANGO_SCALE_XX_LARGE: The scale factor for three magnification steps (1.2 * 1.2 * 1.2).
+
+=end pod
+
+# NOTE: These were C defines -> no enums but num64!!!
+#TE:0:PangoScale
+enum PangoScale is export (
+  :PANGO_SCALE_XX_SMALL(Num(0.5787037037037)),
+  :PANGO_SCALE_X_SMALL(Num(0.6944444444444)),
+  :PANGO_SCALE_SMALL(Num(0.8333333333333)),
+  :PANGO_SCALE_MEDIUM(Num(1.0)),
+  :PANGO_SCALE_LARGE(Num(1.2)),
+  :PANGO_SCALE_X_LARGE(Num(1.44)),
+  :PANGO_SCALE_XX_LARGE(Num(1.728)),
+);
+
 #`{{
 #-------------------------------------------------------------------------------
 =begin pod
