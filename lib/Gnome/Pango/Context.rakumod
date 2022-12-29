@@ -129,8 +129,6 @@ Forces a change in the context, which will cause any `PangoLayout` using this co
 
 This function is only useful when implementing a new backend for Pango, something applications won't do. Backends should call this function if they have attached extra data to the context and such data is changed.
 
-.4
-
   method changed ( )
 
 =end pod
