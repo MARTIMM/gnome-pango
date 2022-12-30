@@ -35,6 +35,7 @@ also is Gnome::GObject::Object;
 =begin pod
 =head1 Types
 =end pod
+
 #-------------------------------------------------------------------------------
 =begin pod
 =head2 enum PangoFontMask
@@ -67,6 +68,7 @@ enum PangoFontMask is export (
   'PANGO_FONT_MASK_VARIATIONS' => 1 +< 7,
 );
 
+#`{{
 #-------------------------------------------------------------------------------
 =begin pod
 =head2 enum PangoStretch
@@ -100,7 +102,8 @@ enum PangoStretch is export (
   'PANGO_STRETCH_EXTRA_EXPANDED',
   'PANGO_STRETCH_ULTRA_EXPANDED'
 );
-
+}}
+#`{{
 #-------------------------------------------------------------------------------
 =begin pod
 =head2 enum PangoStyle
@@ -121,7 +124,9 @@ enum PangoStyle is export (
   'PANGO_STYLE_OBLIQUE',
   'PANGO_STYLE_ITALIC'
 );
+}}
 
+#`{{
 #-------------------------------------------------------------------------------
 =begin pod
 =head2 enum PangoVariant
@@ -150,7 +155,9 @@ enum PangoVariant is export (
   'PANGO_VARIANT_UNICASE',
   'PANGO_VARIANT_TITLE_CAPS'
 );
+}}
 
+#`{{
 #-------------------------------------------------------------------------------
 =begin pod
 =head2 enum PangoWeight
@@ -192,6 +199,7 @@ enum PangoWeight is export (
   'PANGO_WEIGHT_HEAVY' => 900,
   'PANGO_WEIGHT_ULTRAHEAVY' => 1000
 );
+}}
 
 #-------------------------------------------------------------------------------
 =begin pod
@@ -273,11 +281,7 @@ class N-PangoFontFamily is export is repr('CStruct') {
 =head1 Methods
 =head2 new
 
-=head3 default, no options
-
-Create a new Font object.
-
-  multi method new ( )
+There is no default new method. To get a defined object, you can only make use of the C<:native-object> attribute.
 
 
 =head3 :native-object
@@ -300,7 +304,7 @@ submethod BUILD ( *%options ) {
 
     # check if common options are handled by some parent
     elsif %options<native-object>:exists { }
-#`{{
+
     # process all other options
     else {
       my $no;
@@ -322,12 +326,12 @@ submethod BUILD ( *%options ) {
       }
       }}
 
-      #`{{ when there are no defaults use this
+      ##`{{ when there are no defaults use this
       # check if there are any options
       elsif %options.elems == 0 {
         die X::Gnome.new(:message('No options specified ' ~ self.^name));
       }
-      }}
+      #}}
 
       #`{{ when there are defaults use this instead
       # create default object
@@ -338,7 +342,6 @@ submethod BUILD ( *%options ) {
 
       self.set-native-object($no);
     }
-}}
 
     # only after creating the native-object, the gtype is known
     self._set-class-info('PangoFont');
@@ -652,27 +655,29 @@ sub pango_font_get_coverage (
 ) is native(&pango-lib)
   { * }
 
-#`{{
 #-------------------------------------------------------------------------------
 #TM:0:get-face:
 =begin pod
 =head2 get-face
 
+Gets the native object of B<Gnome::Pango::FontFace> to which font belongs.
 
+  method get-face ( --> N-GObject )
 
-  method get-face ( --> PangoFontFace )
+Example
+
+  my Gnome::Pango::FontFace() $face = $font.get-face;
 
 =end pod
 
-method get-face ( --> PangoFontFace ) {
+method get-face ( --> N-GObject ) {
   pango_font_get_face( self._f('PangoFont'))
 }
 
 sub pango_font_get_face (
-  N-GObject $font --> PangoFontFace
+  N-GObject $font --> N-GObject
 ) is native(&pango-lib)
   { * }
-}}
 
 #`{{
 #-------------------------------------------------------------------------------
