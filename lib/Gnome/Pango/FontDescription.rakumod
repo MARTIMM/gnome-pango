@@ -45,6 +45,7 @@ also is Gnome::GObject::Boxed;
 =head1 Types
 =end pod
 
+#`{{
 #-------------------------------------------------------------------------------
 =begin pod
 =head2 enum PangoFontMask
@@ -75,6 +76,7 @@ enum PangoFontMask is export (
   'PANGO_FONT_MASK_GRAVITY' => 1 +< 6,
   'PANGO_FONT_MASK_VARIATIONS' => 1 +< 7,
 );
+}}
 
 #-------------------------------------------------------------------------------
 =begin pod
