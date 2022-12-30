@@ -1,0 +1,55 @@
+use v6;
+use NativeCall;
+use Test;
+
+use Gnome::Pango::Font;
+use Gnome::Pango::Context;
+use Gnome::Pango::FontFace;
+use Gnome::Pango::FontDescription;
+
+#use Gnome::N::GlibToRakuTypes;
+#use Gnome::N::N-GObject;
+#use Gnome::N::X;
+#Gnome::N::debug(:on);
+
+#-------------------------------------------------------------------------------
+my Gnome::Pango::Font() $f;
+my Gnome::Pango::FontFace() $ff;
+my Gnome::Pango::FontDescription $fd;
+
+#-------------------------------------------------------------------------------
+subtest 'ISA test', {
+  dies-ok { $ff .= new; }, 'object must come from elsewhere';
+#  isa-ok $ff, Gnome::Pango::FontFace, '.new()';
+}
+
+done-testing;
+=finish
+
+#-------------------------------------------------------------------------------
+# set environment variable 'raku-test-all' if rest must be tested too.
+unless %*ENV<raku_test_all>:exists {
+  done-testing;
+  exit;
+}
+
+#-------------------------------------------------------------------------------
+subtest 'Manipulations', {
+  my Gnome::Pango::Context $c .= new;
+  $fd .= new(:string('Courier Italic'));
+  $f = $c.load-font($fd);
+
+note $?LINE;
+  $ff = $f.get-face;
+note $?LINE;
+  $fd = $ff.describe;
+note $?LINE;
+  note $ff.get-sizes;
+note $?LINE;
+}
+
+#-------------------------------------------------------------------------------
+done-testing;
+=finish
+
+
