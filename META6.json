@@ -13,6 +13,7 @@
     "Gnome::Pango::Direction": "lib/Gnome/Pango/Direction.rakumod",
     "Gnome::Pango::Font": "lib/Gnome/Pango/Font.rakumod",
     "Gnome::Pango::FontDescription": "lib/Gnome/Pango/FontDescription.rakumod",
+    "Gnome::Pango::FontFace": "lib/Gnome/Pango/FontFace.rakumod",
     "Gnome::Pango::Gravity": "lib/Gnome/Pango/Gravity.rakumod",
     "Gnome::Pango::Item": "lib/Gnome/Pango/Item.rakumod",
     "Gnome::Pango::Layout": "lib/Gnome/Pango/Layout.rakumod"
