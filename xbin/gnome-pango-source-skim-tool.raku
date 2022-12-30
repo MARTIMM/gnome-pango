@@ -516,6 +516,7 @@ sub get-type( Str:D $declaration is copy, Bool :$attr --> List ) {
     when /GOptionContext/ { $type = 'N-GOptionContext'; }
     when /GOptionGroup/ { $type = 'N-GOptionGroup'; }
     when /GOptionEntry/ { $type = 'N-GOptionEntry'; }
+    when /PangoFontFace || PangoFontFamily || PangoFont $/ { $type = 'N-GObject'; }
 #    when // { $type = 'N-'; }
 
     default {
