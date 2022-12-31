@@ -530,9 +530,6 @@ sub get-type( Str:D $declaration is copy, Bool :$attr --> List ) {
   $type = 'int32' if $type ~~ m/GQuark/;
 }}
 
-  # copy to Raku type for independent convertions
-  my Str $raku-type = $type;
-
   # convert to native perl types
   #$type ~~ s/ g?char \s+ '*' /str/;
 
@@ -563,6 +560,13 @@ sub get-type( Str:D $declaration is copy, Bool :$attr --> List ) {
   $type ~~ s:s/ int /int32/;
   $type ~~ s:s/ gpointer /Pointer/;
 }}
+
+  # seems to happen in pango doc and code
+  $type ~~ s:s/ double / gdouble /;
+
+
+  # copy to Raku type for independent convertions
+  my Str $raku-type = $type;
 
   # convert to perl types
   #$raku-type ~~ s/ 'gchar' \s+ '*' /Str/;
