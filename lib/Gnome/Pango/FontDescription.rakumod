@@ -236,19 +236,15 @@ The following words are understood as gravity values: “Not-Rotated”, “Sout
 
 Any one of the options may be absent. If FAMILY-LIST is absent, then the family_name field of the resulting font description will be initialized to NULL. If STYLE-OPTIONS is missing, then all style options will be set to the default values. If SIZE is missing, the size in the resulting font description will be set to 0.
 
-A typical example:
 
-=begin code
-
-  "Cantarell Italic Light 15 \`wght`=200"
-
-=end code
-
-=begin code
 
   multi method new(:$string!)
 
-=end code
+
+A typical example string:
+
+  "Cantarell Italic Light 15 \`wght`=200"
+
 
 
 =head3 :copy

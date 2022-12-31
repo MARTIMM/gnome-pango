@@ -2,6 +2,9 @@ use NativeCall;
 use Test;
 
 use Gnome::Pango::Context;
+use Gnome::Pango::Matrix;
+use Gnome::Pango::Font;
+use Gnome::Pango::FontDescription;
 
 #use Gnome::N::GlibToRakuTypes;
 #use Gnome::N::N-GObject;
@@ -9,18 +12,17 @@ use Gnome::Pango::Context;
 #Gnome::N::debug(:on);
 
 #-------------------------------------------------------------------------------
-#-------------------------------------------------------------------------------
 my Gnome::Pango::Context $c;
+my Gnome::Pango::Matrix() ( $m, $m0);
+my N-PangoMatrix() $pm;
+my Gnome::Pango::FontDescription $fd;
+my Gnome::Pango::Font() $f;
+
 #-------------------------------------------------------------------------------
 subtest 'ISA test', {
   $c .= new;
   isa-ok $c, Gnome::Pango::Context, '.new()';
 }
-
-#-------------------------------------------------------------------------------
-done-testing;
-=finish
-
 
 #-------------------------------------------------------------------------------
 # set environment variable 'raku-test-all' if rest must be tested too.
@@ -31,5 +33,17 @@ unless %*ENV<raku_test_all>:exists {
 
 #-------------------------------------------------------------------------------
 subtest 'Manipulations', {
+  $m .= new(:matrix( %(:xx(1), :xy(1), :yx(1), :yy(1), :x0(0), :y0(0))));
+#  $c.set-matrix($m.get-native-object);
+  $c.set-matrix($m);
+  $m0 = $c.get-matrix;
+  $pm = $m0.get-native-object;
+  is $pm.xy, 1e0, '.set-matrix() / .get-matrix()';
+
+  $fd .= new(:string('Courier Italic'));
+  $f = $c.load-font($fd);
 }
 
+#-------------------------------------------------------------------------------
+done-testing;
+=finish

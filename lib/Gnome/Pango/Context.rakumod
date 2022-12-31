@@ -40,6 +40,7 @@ use Gnome::N::GlibToRakuTypes;
 use Gnome::GObject::Object;
 
 use Gnome::Pango::Direction;
+use Gnome::Pango::Matrix;
 use Gnome::Pango::Gravity;
 
 #-------------------------------------------------------------------------------
@@ -309,7 +310,7 @@ sub pango_context_get_language (
   { * }
 
 #-------------------------------------------------------------------------------
-#TM:0:get-matrix:
+#TM:1:get-matrix:
 =begin pod
 =head2 get-matrix
 
@@ -618,7 +619,7 @@ sub pango_context_set_language (
   { * }
 
 #-------------------------------------------------------------------------------
-#TM:0:set-matrix:
+#TM:1:set-matrix:
 =begin pod
 =head2 set-matrix
 
@@ -626,7 +627,7 @@ Sets the transformation matrix that will be applied when rendering with this con
 
 Note that reported metrics are in the user space coordinates before the application of the matrix, not device-space coordinates after the application of the matrix. So, they don't scale with the matrix, though they may change slightly for different matrices, depending on how the text is fit to the pixel grid.
 
-  method set-matrix ( N-GObject() $matrix )
+  method set-matrix ( N-PangoMatrix() $matrix )
 
 =item $matrix; a `PangoMatrix`, or C<undefined> to unset any existing matrix. (No matrix set is the same as setting the identity matrix.)
 =end pod

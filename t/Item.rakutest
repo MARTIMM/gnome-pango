@@ -23,6 +23,8 @@ subtest 'ISA test', {
   my Gnome::Pango::Item() $i2 = $i.copy;
   isa-ok $i2, Gnome::Pango::Item, '.copy()';
   ok $i.is-valid(), 'copy is also valid';
+
+#TODO: does not seem to work - my N-PangoItem() $i0 = $i;
 }
 
 #-------------------------------------------------------------------------------

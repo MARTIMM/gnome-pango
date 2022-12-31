@@ -88,7 +88,7 @@ The B<N-PangoItem> structure stores information about a segment of text.
 
 =end pod
 
-#TT:0:N-PangoItem:
+#TT:1:N-PangoItem:
 class N-PangoItem is export is repr('CStruct') {
   has int32 $.offset;
   has int32 $.length;
@@ -282,7 +282,7 @@ method pango-itemize ( N-GObject() $context, Str $text, Int() $start_index, Int(
 }
 
 sub pango_itemize (
-  N-GObject $context, gchar-ptr $text, int $start_index, int $length, PangoAttrList $attrs, PangoAttrIterator $cached_iter --> N-GList
+  N-PangoItem $context, gchar-ptr $text, int $start_index, int $length, PangoAttrList $attrs, PangoAttrIterator $cached_iter --> N-GList
 ) is native(&pango-lib)
   { * }
 
@@ -309,7 +309,7 @@ method pango-itemize-with-base-dir ( N-GObject() $context, PangoDirection $base_
 }
 
 sub pango_itemize_with_base_dir (
-  N-GObject $context, PangoDirection $base_dir, gchar-ptr $text, int $start_index, int $length, PangoAttrList $attrs, PangoAttrIterator $cached_iter --> N-GList
+  N-PangoItem $context, PangoDirection $base_dir, gchar-ptr $text, int $start_index, int $length, PangoAttrList $attrs, PangoAttrIterator $cached_iter --> N-GList
 ) is native(&pango-lib)
   { * }
 
