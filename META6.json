@@ -16,7 +16,8 @@
     "Gnome::Pango::FontFace": "lib/Gnome/Pango/FontFace.rakumod",
     "Gnome::Pango::Gravity": "lib/Gnome/Pango/Gravity.rakumod",
     "Gnome::Pango::Item": "lib/Gnome/Pango/Item.rakumod",
-    "Gnome::Pango::Layout": "lib/Gnome/Pango/Layout.rakumod"
+    "Gnome::Pango::Layout": "lib/Gnome/Pango/Layout.rakumod",
+    "Gnome::Pango::Matrix": "lib/Gnome/Pango/Matrix.rakumod"
   },
 
   "source-url": "git://github.com/MARTIMM/gnome-pango.git",
