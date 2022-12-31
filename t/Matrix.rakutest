@@ -1,0 +1,76 @@
+use v6;
+use NativeCall;
+use Test;
+
+use Gnome::Pango::Matrix;
+
+#use Gnome::N::GlibToRakuTypes;
+#use Gnome::N::N-GObject;
+#use Gnome::N::X;
+#Gnome::N::debug(:on);
+
+#-------------------------------------------------------------------------------
+my Gnome::Pango::Matrix $m;
+my N-PangoMatrix() $pm;
+
+#-------------------------------------------------------------------------------
+subtest 'ISA test', {
+  $m .= new(:matrix( %(:xx(1), :xy(1), :yx(1), :yy(1), :x0(0), :y0(0))));
+  isa-ok $m, Gnome::Pango::Matrix, '.new(:matrix)';
+
+  $pm = $m.get-native-object;
+  is $pm.xx, 1e0, 'N-PangoMatrix from $m.get-native-object';
+#  note $pm.gist;
+#TODO: does not seem to work
+#  my N-PangoMatrix() $pm0 = $m;
+  $pm .= new(:matrix($m));
+  is $pm.xx, 1e0, 'N-PangoMatrix.new(:matrix)';
+}
+
+#-------------------------------------------------------------------------------
+# set environment variable 'raku-test-all' if rest must be tested too.
+unless %*ENV<raku_test_all>:exists {
+  done-testing;
+  exit;
+}
+
+#-------------------------------------------------------------------------------
+subtest 'Manipulations', {
+  $pm = $m.get-native-object;
+  is $m.get-font-scale-factor, 0e0, '.get-font-scale-factor()';
+  is-deeply $m.get-font-scale-factors, ( 0e0, 0e0), '.get-font-scale-factors()';
+  is $m.get-slant-ratio, 1e0, '.get-slant-ratio()';
+
+  $m.rotate(90);
+  $pm = $m.get-native-object;
+#  note $pm;
+  is-approx $pm.xx, -1e0, '.rotate()';
+
+  $m.scale( 2, 2);
+  $pm = $m.get-native-object;
+  is-approx $pm.xx, -2e0, '.scale()';
+
+  my $dx = 3e0;
+  my $dy = 1e0;
+  $m.transform-distance( $dx, $dy);
+  # $dx = 3 * -2 + 1 * 2  (2's are from result of .scale() and .rotate())
+  is-approx $dx, -4e0, '.transform-distance()';
+#  note "$dx, $dy";
+
+#  note $pm;
+  my $x = 10e0;
+  my $y = 1e0;
+  $m.transform-point( $x, $y);
+  # $x = 10 * -2 + 1 * 2
+  is-approx $x, -18e0, '.transform-point()';
+#  note "$x, $y";
+
+  $m.translate( 2, 3);
+  $pm = $m.get-native-object;
+  is-approx $pm.x0, 2e0, '.translate()';
+}
+
+
+#-------------------------------------------------------------------------------
+done-testing;
+=finish
